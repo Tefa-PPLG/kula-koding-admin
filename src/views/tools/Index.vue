@@ -5,7 +5,7 @@
       <div class="flex gap-5">
         <RouterLink
           class="flex items-center gap-2 bg-green-500 hover:bg-green-700 duration-200 transition-colors px-2 rounded-md py-1"
-          :to="{ name: 'user' }"
+          :to="{ name: 'tools.add' }"
         >
           <PlusIcon class="w-5 h-5 text-primary"></PlusIcon>
           <span class="text-primary">Add tools</span>
@@ -36,6 +36,12 @@
               scope="col"
               class="py-2.5 pl-4 pr-3 text-left text-xs font-semibold text-secondary sm:pl-6"
             >
+              Image
+            </th>
+            <th
+              scope="col"
+              class="py-2.5 pl-4 pr-3 text-left text-xs font-semibold text-secondary sm:pl-6"
+            >
               Action
             </th>
           </tr>
@@ -47,6 +53,9 @@
             </td>
             <td class="py-2 pl-4 pr-3 text-xs font-medium">
               {{ item.tools }}
+            </td>
+            <td class="py-2 pl-4 pr-3 text-xs font-medium">
+              <img :src="BASE_URL + '/' + item.image" class="w-12 h-12" alt="" />
             </td>
             <td class="py-2 flex gap-5 pl-4 pr-3 text-xs font-medium">
               <RouterLink
@@ -77,6 +86,8 @@ import { onMounted, computed, ref } from 'vue'
 import useTools from '@/services/data/tools'
 
 const { IndexTools, tools } = useTools()
+
+const BASE_URL = import.meta.env.VITE_API_URL
 
 const keyword = ref('')
 

@@ -17,8 +17,9 @@ export interface Project {
 }
 
 export interface Tools {
-  id: string
+  id?: string
   tools: string
+  image: string
 }
 
 export interface Total {

@@ -17,9 +17,21 @@ export default function useTools() {
     tools.value = response.data.tools
   }
 
+  async function StoreTools(payload: Tools) {
+    try {
+      const response = await axios.post('/api/v1/tool', payload)
+      console.log(response.data)
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log(error.response?.data)
+      }
+    }
+  }
+
   return {
     tools,
     IndexTools,
-    DetailTools
+    DetailTools,
+    StoreTools
   }
 }
