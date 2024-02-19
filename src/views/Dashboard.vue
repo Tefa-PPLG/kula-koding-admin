@@ -55,24 +55,29 @@
               <h3 class="">{{ item.username }}</h3>
             </div>
           </div>
+          <button
+            class="w-full bg-secondary text-white py-2 mt-5 hover:bg-gray-900 duration-150 transition-colors"
+          >
+            View All User
+          </button>
         </div>
       </div>
       <div class="flex justify-center items-center">
         <div class="p-6 flex flex-col border-2 border-secondary rounded-md shadow bg-primary">
-          <h3 class="">Latest Project</h3>
-          <div class="grid gap-4 mt-3 grid-cols-3">
+          <h3 class="font-medium text-center mb-5 text-xl">Latest Project</h3>
+          <div class="">
             <Table class="min-w-full divide-y divide-gray-300">
-              <thead>
-                <th class="px-2">Nama Project</th>
-                <th class="px-2">Author</th>
+              <thead class="border-2 border-secondary">
+                <th class="px-2 border-2 border-secondary">Nama Project</th>
+                <th class="px-2 border-2 border-secondary">Author</th>
               </thead>
               <tbody>
-                <tr v-for="item in latest.project">
-                  <td>
+                <tr class="border-2 border-secondary" v-for="item in latests.project">
+                  <td class="border-2 border-secondary">
                     {{ item.nama_project }}
                   </td>
-                  <td>
-                    {{ item.user.username }}
+                  <td class="border-2 border-secondary">
+                    {{ item.user?.username }}
                   </td>
                 </tr>
               </tbody>
@@ -93,8 +98,11 @@ import {
 } from '@heroicons/vue/24/solid'
 import useDashboard from '@/services/data'
 import { onMounted } from 'vue'
+import type { Latest } from '@/utils'
 
 const { total, TotalData, latest, Latest } = useDashboard()
+
+const latests: Latest = latest
 
 onMounted(() => {
   TotalData()

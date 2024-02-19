@@ -89,11 +89,11 @@
     </TransitionRoot>
 
     <!-- Static sidebar for desktop -->
-    <div class="hidden lg:flex lg:w-60 lg:flex-col lg:fixed lg:inset-y-0">
+    <div class="hidden lg:flex lg:w-40 lg:flex-col lg:fixed lg:inset-y-0">
       <div class="flex flex-col flex-grow bg-secondary pb-4 overflow-y-auto">
         <router-link
           to="/"
-          class="flex items-center justify-center mt-5 flex-shrink-0 border-b border-gray-200 lg:border-none px-2 py-2"
+          class="flex items-center justify-center mt-5 flex-shrink-0 border-b border-gray-200 lg:border-none py-2"
         >
           <h3 class="text-primary">Dashboard</h3>
         </router-link>
@@ -101,25 +101,31 @@
           class="mt-2 flex-1 bg-secondary flex flex-col divide-y divide-gray-400 overflow-y-auto"
           aria-label="Sidebar"
         >
-          <div class="px-2 space-y-1">
+          <div class="space-y-1 flex justify-center items-center flex-col overflow-hidden">
             <a
               v-for="item in navigation"
               :key="item.name"
               :href="item.href"
               :class="[
-                item.current
-                  ? 'bg-gray-800 text-white'
-                  : 'text-gray-200 hover:text-white hover:bg-slate-900',
+                item.current ? 'bg-primary text-secondary' : '',
                 'group flex items-center px-2 py-1.5 text-xs leading-6 font-medium rounded-md'
               ]"
               :aria-current="item.current ? 'page' : undefined"
             >
-              <component
-                :is="item.icon"
-                class="mr-2 flex-shrink-0 h-4 w-4 text-gray-200 hover:text-white"
-                aria-hidden="true"
-              />
-              {{ item.name }}
+              <div
+                class="group flex justify-center items-center bg-primary p-2 rounded-full hover:rounded-md transition-all"
+              >
+                <component
+                  :is="item.icon"
+                  class="flex-shrink-0 h-[50px] w-[50px] text-secondary hover:text-secondary"
+                  aria-hidden="true"
+                />
+              </div>
+              <div
+                class="absolute left-32 bg-primary text-secondary group-hover:opacity-100 p-2 px-4 w-28 text-center mt-2 opacity-0 rounded-md shadow-md duration-150 font-semibold"
+              >
+                {{ item.name }}
+              </div>
             </a>
           </div>
         </nav>
