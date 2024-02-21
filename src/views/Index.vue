@@ -1,7 +1,11 @@
 <template>
   <div class="min-h-full">
     <TransitionRoot as="template" :show="sidebarOpen">
-      <Dialog as="div" class="relative z-40 lg:hidden" @close="sidebarOpen = false">
+      <Dialog
+        as="div"
+        class="relative z-40 lg:hidden"
+        @close="sidebarOpen = false"
+      >
         <TransitionChild
           as="template"
           enter="transition-opacity ease-linear duration-300"
@@ -24,7 +28,9 @@
             leave-from="translate-x-0"
             leave-to="-translate-x-full"
           >
-            <DialogPanel class="relative flex-1 flex flex-col max-w-xs w-full pb-4 bg-secondary">
+            <DialogPanel
+              class="relative flex-1 flex flex-col max-w-xs w-full pb-4 bg-secondary"
+            >
               <TransitionChild
                 as="template"
                 enter="ease-in-out duration-300"
@@ -50,7 +56,9 @@
                 @click="sidebarOpen = false"
                 class="flex-shrink-0 flex items-center px-4 py-4"
               >
-                <div class="mt-1.5 ml-0.5 font-bold text-xl text-gray-200"></div>
+                <div
+                  class="mt-1.5 ml-0.5 font-bold text-xl text-gray-200"
+                ></div>
               </router-link>
               <nav
                 class="mt-2 flex-shrink-0 h-full divide-y divide-gray-400 overflow-y-auto"
@@ -66,7 +74,7 @@
                       item.current
                         ? 'bg-gray -800 text-white'
                         : 'text-white hover:text-white hover:bg-gray-900',
-                      'group flex items-center px-2 py-2 text-xs font-medium rounded-md'
+                      'group flex items-center px-2 py-2 text-xs font-medium rounded-md',
                     ]"
                     :aria-current="item.current ? 'page' : undefined"
                   >
@@ -101,19 +109,21 @@
           class="mt-2 flex-1 bg-secondary flex flex-col divide-y divide-gray-400 overflow-y-auto"
           aria-label="Sidebar"
         >
-          <div class="space-y-1 flex justify-center items-center flex-col overflow-hidden">
+          <div
+            class="space-y-1 flex justify-center items-center flex-col overflow-hidden"
+          >
             <a
               v-for="item in navigation"
               :key="item.name"
               :href="item.href"
               :class="[
                 item.current ? 'bg-primary text-secondary' : '',
-                'group flex items-center px-2 py-1.5 text-xs leading-6 font-medium rounded-md'
+                'group flex items-center px-2 py-1.5 text-xs leading-6 font-medium  transition-all rounded-md',
               ]"
               :aria-current="item.current ? 'page' : undefined"
             >
               <div
-                class="group flex justify-center items-center bg-primary p-2 rounded-full hover:rounded-md transition-all"
+                class="group flex justify-center items-center bg-primary p-2 rounded-full hover:rounded-md transition-all ease-in-out"
               >
                 <component
                   :is="item.icon"
@@ -145,7 +155,9 @@
           <Bars4Icon class="h-6 w-6" aria-hidden="true" />
         </button>
         <!-- Search bar -->
-        <div class="flex-1 px-4 flex justify-between sm:px-6 lg:max-w-auto lg:mx-auto lg:px-8">
+        <div
+          class="flex-1 px-4 flex justify-between sm:px-6 lg:max-w-auto lg:mx-auto lg:px-8"
+        >
           <div class="flex-1 flex"></div>
           <div class="ml-4 flex items-center md:ml-6">
             <router-link
@@ -198,7 +210,7 @@
                       href="#/profile"
                       :class="[
                         active ? 'bg-gray-100' : '',
-                        'block px-4 py-2 text-xs text-gray-700'
+                        'block px-4 py-2 text-xs text-gray-700',
                       ]"
                       >Profile</a
                     >
@@ -208,7 +220,7 @@
                       @click="Logout()"
                       :class="[
                         active ? 'bg-gray-100' : '',
-                        'block px-4 py-2 text-xs text-gray-700'
+                        'block px-4 py-2 text-xs text-gray-700',
                       ]"
                       >Logout</a
                     >
@@ -229,7 +241,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from "vue";
 import {
   Dialog,
   DialogPanel,
@@ -238,8 +250,8 @@ import {
   MenuItem,
   MenuItems,
   TransitionChild,
-  TransitionRoot
-} from '@headlessui/vue'
+  TransitionRoot,
+} from "@headlessui/vue";
 import {
   BellIcon,
   Cog8ToothIcon,
@@ -257,53 +269,54 @@ import {
   CreditCardIcon,
   ClipboardDocumentCheckIcon,
   ArrowDownOnSquareStackIcon,
-  AdjustmentsHorizontalIcon
-} from '@heroicons/vue/24/outline'
+  AdjustmentsHorizontalIcon,
+  CodeBracketIcon,
+} from "@heroicons/vue/24/outline";
 
-import useAuth from '@/services/auth'
+import useAuth from "@/services/auth";
 
-const { Logout, getAuth, auth } = useAuth()
+const { Logout, getAuth, auth } = useAuth();
 
-getAuth()
+getAuth();
 
 const navigation = [
   {
-    name: 'Dashboard',
-    href: '/dashboard',
+    name: "Dashboard",
+    href: "/dashboard",
     icon: RectangleGroupIcon,
-    current: false
+    current: false,
   },
   {
-    name: 'Project',
-    href: '/project',
+    name: "Project",
+    href: "/project",
+    icon: CodeBracketIcon,
+    current: false,
+  },
+  {
+    name: "Verifikasi User",
+    href: "/verifikasi",
     icon: CheckBadgeIcon,
-    current: false
+    current: false,
   },
   {
-    name: 'Verifikasi User',
-    href: '/verifikasi',
-    icon: CheckBadgeIcon,
-    current: false
-  },
-  {
-    name: 'User',
-    href: '/user',
+    name: "User",
+    href: "/user",
     icon: BuildingStorefrontIcon,
-    current: false
+    current: false,
   },
   {
-    name: 'Tools',
-    href: '/tool',
+    name: "Tools",
+    href: "/tool",
     icon: AdjustmentsHorizontalIcon,
-    current: false
+    current: false,
   },
   {
-    name: 'Pengaturan',
-    href: '/pengaturan',
+    name: "Pengaturan",
+    href: "/pengaturan",
     icon: Cog8ToothIcon,
-    current: false
-  }
-]
+    current: false,
+  },
+];
 
-const sidebarOpen = ref(false)
+const sidebarOpen = ref(false);
 </script>
