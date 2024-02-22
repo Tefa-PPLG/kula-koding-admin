@@ -6,7 +6,7 @@
   >
     <!-- Project Picture -->
     <div class="flex gap-20">
-      <label for="picture">Project Picture :</label>
+      <label for="picture">Thumbnail :</label>
       <div
         class="relative flex flex-col border border-gray-300 focus:outline-none rounded-md items-center p-2 gap-5"
       >
@@ -29,10 +29,34 @@
       </div>
     </div>
     <div class="flex gap-10">
-      <label for="deskripsi">Nama Tools :</label>
+      <label for="deskripsi">Judul :</label>
       <div class="relative flex flex-col gap-5">
         <input
-          v-model="payload.tools"
+          v-model="payload.judul"
+          type="text"
+          id="tools"
+          class="py-2 w-[365px] bg-transparent bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-transparent dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Nama Project"
+        />
+      </div>
+    </div>
+    <div class="flex gap-10">
+      <label for="deskripsi">Slug :</label>
+      <div class="relative flex flex-col gap-5">
+        <input
+          v-model="payload.slug"
+          type="text"
+          id="tools"
+          class="py-2 w-[365px] bg-transparent bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-transparent dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Nama Project"
+        />
+      </div>
+    </div>
+    <div class="flex gap-10">
+      <label for="deskripsi">Konten :</label>
+      <div class="relative flex flex-col gap-5">
+        <input
+          v-model="payload.konten"
           type="text"
           id="tools"
           class="py-2 w-[365px] bg-transparent bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:bg-transparent dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -52,13 +76,15 @@
 <script setup>
 import { PlusIcon } from "@heroicons/vue/24/solid";
 import { reactive, ref } from "vue";
-import useTools from "@/services/data/tools";
+import useBlog from "@/services/data/blog";
 
-const { StoreTools } = useTools();
+const { blog, StoreBlog } = useBlog();
 
 const payload = reactive({
-  tools: "",
-  image: "",
+  thumbnail: "",
+  slug: "",
+  konten: "",
+  judul: "",
 });
 
 const projectPicturePreview = ref(null);
@@ -66,7 +92,7 @@ const projectPicturePreview = ref(null);
 const previewProjectPicture = (event) => {
   const allowedExtensions = ["png", "jpg", "jpeg"];
   const file = event.target.files[0];
-  payload.image = file;
+  payload.thumbnail = file;
 
   // Validasi ekstensi file
   const extension = file.name.split(".").pop().toLowerCase();
@@ -92,8 +118,10 @@ const getImage = ($event) => {
 
 async function upload() {
   const formData = new FormData();
-  formData.append("tools", payload.tools);
-  formData.append("image", payload.image);
-  await StoreTools(formData);
+  formData.append("judul", payload.judul);
+  formData.append("slug", payload.slug);
+  formData.append("konten", payload.konten);
+  formData.append("thumbnail", payload.thumbnail);
+  await StoreBlog(formData);
 }
 </script>

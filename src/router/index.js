@@ -10,6 +10,9 @@ const IndexProject = () => import("@/views/project/Index.vue");
 const DetailProject = () => import("@/views/project/Detail.vue");
 const Dashboard = () => import("@/views/Dashboard.vue");
 const UploadTools = () => import("@/views/tools/Upload.vue");
+const BlogIndex = () => import("@/views/blog/Index.vue");
+const UploadBlog = () => import("@/views/blog/Upload.vue");
+const UpdateBlog = () => import("@/views/blog/Update.vue");
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -63,6 +66,21 @@ const router = createRouter({
           path: "/dashboard",
           name: "dashboard",
           component: Dashboard,
+        },
+        {
+          path: "/blog",
+          name: "blog",
+          component: BlogIndex,
+        },
+        {
+          path: "/blog/:id",
+          name: "blog.detail",
+          component: UpdateBlog,
+        },
+        {
+          path: "/add-blog",
+          name: "blog.add",
+          component: UploadBlog,
         },
       ],
     },

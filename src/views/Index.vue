@@ -271,6 +271,7 @@ import {
   ArrowDownOnSquareStackIcon,
   AdjustmentsHorizontalIcon,
   CodeBracketIcon,
+  NewspaperIcon,
 } from "@heroicons/vue/24/outline";
 
 import useAuth from "@/services/auth";
@@ -308,6 +309,12 @@ const navigation = [
     name: "Tools",
     href: "/tool",
     icon: AdjustmentsHorizontalIcon,
+    current: false,
+  },
+  {
+    name: "Blog",
+    href: "/blog",
+    icon: NewspaperIcon,
     current: false,
   },
   {
