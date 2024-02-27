@@ -81,13 +81,13 @@
     <div class="flex mt-5 justify-center items-center">
       <div class="p-6 w-full flex flex-col  border-2 border-dark rounded-md shadow bg-primary">
         <h3 class="font-medium text-center mb-5 text-xl">Latest Comments</h3>
-        <div class="flex flex-col gap-5 items-center">
+        <div class="flex flex-col gap-5">
           <div v-for="item in latest.komentar" class="flex gap-5 items-end border-t-2 border-t-dark">
             <img :src="`https://api.dicebear.com/7.x/initials/svg?seed=${item.user?.username}`" alt="profile"
               class="rounded-full cursor-pointer w-10 items-end justify-end" />
             <div class="flex flex-col relative">
               <div class="flex gap-4 items-center mt-1">
-                <h3 class="">{{ item.user?.kelas }}</h3>
+                <h3 class="">{{ item.user?.username }}</h3>
                 <h3 class="text-light bg-dark p-1 rounded-md">
                   {{ item.user?.kelas }}
                 </h3>
