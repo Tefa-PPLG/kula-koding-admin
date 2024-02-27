@@ -149,7 +149,7 @@
   </form>
 </template>
 
-<script setup lang="ts">
+<script setup >
 import { reactive, ref, onMounted } from 'vue'
 import useAuth from '../../services/auth'
 import {

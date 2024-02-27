@@ -16,7 +16,11 @@
       <table class="min-w-full divide-y divide-gray-300">
         <thead class="bg-primary">
           <tr>
-            <th class="py-2.5 text-left text-white text-xs font-semibold sm:pl-6">No.</th>
+            <th
+              class="py-2.5 text-left text-white text-xs font-semibold sm:pl-6"
+            >
+              No.
+            </th>
             <th
               scope="col"
               class="py-2.5 pl-4 pr-3 text-left text-xs font-semibold text-secondary sm:pl-6"
@@ -29,13 +33,22 @@
             >
               Kelas
             </th>
-            <th scope="col" class="px-3 py-2.5 text-center text-xs font-semibold text-secondary">
+            <th
+              scope="col"
+              class="px-3 py-2.5 text-center text-xs font-semibold text-secondary"
+            >
               Role
             </th>
-            <th scope="col" class="px-3 py-2.5 text-center text-xs font-semibold text-secondary">
+            <th
+              scope="col"
+              class="px-3 py-2.5 text-center text-xs font-semibold text-secondary"
+            >
               Email
             </th>
-            <th scope="col" class="px-3 py-2.5 text-center text-xs font-semibold text-secondary">
+            <th
+              scope="col"
+              class="px-3 py-2.5 text-center text-xs font-semibold text-secondary"
+            >
               Action
             </th>
           </tr>
@@ -57,7 +70,9 @@
             <td class="px-3 py-2 text-center text-xs font-medium">
               {{ item.email }}
             </td>
-            <td class="py-2 flex justify-center items-center gap-5 pl-4 pr-3 text-xs font-medium">
+            <td
+              class="py-2 flex justify-center items-center gap-5 pl-4 pr-3 text-xs font-medium"
+            >
               <RouterLink
                 v-if="item.isVerified != 1"
                 class="flex items-center gap-2 bg-yellow-500 hover:bg-yellow-700 duration-200 transition-colors px-2 rounded-md py-1"
@@ -82,29 +97,29 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { onMounted, computed, ref } from 'vue'
-import { CheckBadgeIcon, CheckIcon } from '@heroicons/vue/24/outline'
-import useUser from '../../services/data/user'
+<script setup>
+import { onMounted, computed, ref } from "vue";
+import { CheckBadgeIcon, CheckIcon } from "@heroicons/vue/24/outline";
+import useUser from "../../services/data/user";
 
-const { IndexUser, user } = useUser()
+const { IndexUser, user } = useUser();
 
-const keyword = ref('')
+const keyword = ref("");
 
 const searchings = computed(() => {
   if (keyword.value) {
     return user.value.filter((item) => {
       return keyword.value
         .toLowerCase()
-        .split(' ')
-        .every((items) => item.username.toLowerCase().includes(items))
-    })
+        .split(" ")
+        .every((items) => item.username.toLowerCase().includes(items));
+    });
   } else {
-    return user.value
+    return user.value;
   }
-})
+});
 
 onMounted(() => {
-  IndexUser()
-})
+  IndexUser();
+});
 </script>

@@ -64,7 +64,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup >
 import { onMounted, computed, ref } from 'vue'
 import { ArrowRightCircleIcon } from '@heroicons/vue/24/outline'
 import useProject from '@/services/data/project'

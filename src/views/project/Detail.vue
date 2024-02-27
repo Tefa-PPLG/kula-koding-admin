@@ -43,7 +43,7 @@
     </div>
   </div>
 </template>
-<script setup lang="ts">
+<script setup >
 import useTools from '@/services/data/tools'
 import { ChevronLeftIcon, PencilSquareIcon, TrashIcon } from '@heroicons/vue/24/outline'
 import { defineProps, reactive, watch, onMounted } from 'vue'

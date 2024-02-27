@@ -12,7 +12,9 @@
       </div>
       <div class="flex gap-3 w-60 bg-primary p-6 shadow items-center">
         <div class="flex bg-yellow-500 p-5">
-          <CodeBracketIcon class="w-5 font-bold h-5 text-primary"></CodeBracketIcon>
+          <CodeBracketIcon
+            class="w-5 font-bold h-5 text-primary"
+          ></CodeBracketIcon>
         </div>
         <div class="flex-col">
           <h3 class="font-semibold">Project</h3>
@@ -30,7 +32,9 @@
       </div>
       <div class="flex gap-3 w-60 bg-primary p-6 shadow items-center">
         <div class="flex bg-red-500 p-5">
-          <ChatBubbleOvalLeftIcon class="w-5 h-5 text-primary"></ChatBubbleOvalLeftIcon>
+          <ChatBubbleOvalLeftIcon
+            class="w-5 h-5 text-primary"
+          ></ChatBubbleOvalLeftIcon>
         </div>
         <div class="flex-col">
           <h3 class="font-semibold">Comments</h3>
@@ -38,9 +42,11 @@
         </div>
       </div>
     </div>
-    <div class="flex justify-between mt-5">
+    <div class="flex gap-7 mt-5">
       <div class="flex justify-center items-center">
-        <div class="p-6 flex flex-col border-2 border-secondary rounded-md shadow bg-primary">
+        <div
+          class="p-6 h-[375px] w-[670px] flex flex-col border-2 border-secondary rounded-md shadow bg-primary"
+        >
           <h3 class="">Latest User</h3>
           <div class="grid gap-4 mt-3 grid-cols-3">
             <div
@@ -63,16 +69,21 @@
         </div>
       </div>
       <div class="flex justify-center items-center">
-        <div class="p-6 flex flex-col border-2 border-secondary rounded-md shadow bg-primary">
+        <div
+          class="p-6 w-[455px] h-[375px] flex flex-col border-2 border-secondary rounded-md shadow bg-primary"
+        >
           <h3 class="font-medium text-center mb-5 text-xl">Latest Project</h3>
           <div class="">
             <Table class="min-w-full divide-y divide-gray-300">
-              <thead class="border-2 border-secondary">
+              <thead class="border bg-[#9C9C9C] border-secondary">
                 <th class="px-2 border-2 border-secondary">Nama Project</th>
                 <th class="px-2 border-2 border-secondary">Author</th>
               </thead>
               <tbody>
-                <tr class="border-2 border-secondary" v-for="item in latests.project">
+                <tr
+                  class="border border-secondary odd:bg-[#D9D9D9] even:bg-[#ABABAB]"
+                  v-for="item in latests.project"
+                >
                   <td class="border-2 border-secondary">
                     {{ item.nama_project }}
                   </td>
@@ -86,26 +97,69 @@
         </div>
       </div>
     </div>
+    <div class="flex mt-5 justify-center items-center">
+      <div
+        class="p-6 w-full flex flex-col border-2 border-secondary rounded-md shadow bg-primary"
+      >
+        <h3 class="font-medium text-center mb-5 text-xl">Latest Comments</h3>
+        <div class="flex flex-col gap-5 items-center">
+          <div
+            v-for="item in latest.komentar"
+            class="flex gap-5 items-center border-t-2 border-t-primary"
+          >
+            <img
+              :src="`https://api.dicebear.com/7.x/initials/svg?seed=${item.user?.username}`"
+              alt="profile"
+              class="rounded-full cursor-pointer w-10 items-center justify-center"
+            />
+            <div class="flex flex-col relative">
+              <div class="flex gap-4 items-center">
+                <h3 class="">{{ item.user?.username }}</h3>
+                <h3 class="text-primary bg-secondary p-2 rounded-md">
+                  {{ item.user?.kelas }}
+                </h3>
+              </div>
+              <input
+                disabled
+                type="text"
+                class="bg-tertiary text-secondary placeholder:text-primary lg:w-96 border-none p-0 py-4"
+                :value="item.komentar"
+              />
+              <div class="flex gap-2">
+                <button @click="like(item.id)" class="text-primary w-6 flex">
+                  <span v-if="liked == false">
+                    <HeartIcon class="w-6 h-6 text-primary"></HeartIcon>
+                  </span>
+                  <span v-else>
+                    <HeartIcon class="w-6 h-6 text-[#eb000e]"></HeartIcon>
+                  </span>
+                </button>
+                <h3>0</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import {
   UserIcon,
   CodeBracketIcon,
   WrenchIcon,
-  ChatBubbleOvalLeftIcon
-} from '@heroicons/vue/24/solid'
-import useDashboard from '@/services/data'
-import { onMounted } from 'vue'
-import type { Latest } from '@/utils'
+  ChatBubbleOvalLeftIcon,
+} from "@heroicons/vue/24/solid";
+import useDashboard from "@/services/data";
+import { onMounted } from "vue";
 
-const { total, TotalData, latest, Latest } = useDashboard()
+const { total, TotalData, latest, Latest } = useDashboard();
 
-const latests: Latest = latest
+const latests = latest;
 
 onMounted(() => {
-  TotalData()
-  Latest()
-})
+  TotalData();
+  Latest();
+});
 </script>
