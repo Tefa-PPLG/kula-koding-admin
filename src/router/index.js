@@ -23,11 +23,17 @@ const router = createRouter({
       path: "/login",
       name: "login",
       component: Login,
+      meta: {
+        guestRequired: true,
+      },
     },
     {
       path: "/",
       name: "home",
       component: Index,
+      meta: {
+        authRequired: true,
+      },
       children: [
         {
           path: "/user",
@@ -102,13 +108,13 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const isLoggedIn = localStorage.getItem("access_token");
   if (to.matched.some((record) => record.meta.authRequired)) {
-    if (isLoggedIn == null) {
+    if (!isLoggedIn) {
       next("/login");
     } else {
       next();
     }
   } else if (to.matched.some((record) => record.meta.guestRequired)) {
-    if (isLoggedIn == null) {
+    if (!isLoggedIn) {
       next();
     } else {
       next("/dashboard");
