@@ -6,15 +6,14 @@
   >
     <!-- Project Picture -->
     <div class="flex gap-20">
-      <label for="picture">Config Picture :</label>
+      <label for="picture">Thumbnail :</label>
       <div
         class="relative flex flex-col border border-gray-300 focus:outline-none rounded-md items-center p-2 gap-5"
       >
         <input
-          multiple
           type="file"
-          @change="getImage($event)"
-          name="image[]"
+          @change="previewProjectPicture"
+          name="my-input"
           id="picture"
           class="text-gray-500 bg-gray-300 rounded-md"
           accept=".png, .jpg, .jpeg"
@@ -44,7 +43,7 @@
     <div class="flex gap-10">
       <label for="deskripsi">Value :</label>
       <div class="relative flex flex-col gap-5">
-        <textarea
+        <input
           v-model="payload.value"
           type="text"
           id="tools"
@@ -53,10 +52,11 @@
         />
       </div>
     </div>
+
     <div class="flex gap-10">
       <Button class="flex gap-3 px-6 py-1.5 rounded-md bg-green-500 text-white">
         <PlusIcon class="w-5 h-5"></PlusIcon>
-        <span class=""> Tambah Data </span></Button
+        <span class=""> Update Data </span></Button
       >
     </div>
   </form>
@@ -64,17 +64,20 @@
 
 <script setup>
 import { PlusIcon } from "@heroicons/vue/24/solid";
-import { reactive, ref } from "vue";
-import useTools from "@/services/data/tools";
+import { onMounted, reactive, ref, watch } from "vue";
+import useBlog from "@/services/data/blog";
 import useConfig from "@/services/data/config";
+import { useRoute } from "vue-router";
 
-const { StoreConfig } = useConfig();
-const { StoreTools } = useTools();
+const router = useRoute();
+
+const { config, ShowConfig, UpdateConfig } = useConfig();
+
+const { blog, ShowBlog, UpdateBlog } = useBlog();
 
 const payload = reactive({
   config: "",
   value: "",
-  image: [],
 });
 
 const projectPicturePreview = ref(null);
@@ -82,7 +85,7 @@ const projectPicturePreview = ref(null);
 const previewProjectPicture = (event) => {
   const allowedExtensions = ["png", "jpg", "jpeg"];
   const file = event.target.files[0];
-  payload.image = file;
+  payload.thumbnail = file;
 
   // Validasi ekstensi file
   const extension = file.name.split(".").pop().toLowerCase();
@@ -100,33 +103,27 @@ const previewProjectPicture = (event) => {
   }
 };
 
-const image = [];
-
 const getImage = ($event) => {
-  const file = $event.target.files;
-
-  payload.image = Array.from(file);
-  const gambar = Array.from(file);
-  console.log(file);
-  console.log(gambar);
-
-  for (let i = 0; i < payload.image.length; i++) {
-    const files = payload.image[i];
-    const url = URL.createObjectURL(files);
-    console.log(url);
-
-    console.log(files);
-  }
+  const target = $event.target;
+  form.image = target.files[0];
+  form.preview = URL.createObjectURL($event.target.files[0]);
 };
+
+watch(config, (configs) => {
+  payload.config = configs.config;
+  payload.value = configs.value;
+});
 
 async function upload() {
   const formData = new FormData();
   formData.append("config", payload.config);
   formData.append("value", payload.value);
-  for (let i = 0; i < payload.image.length; i++) {
-    formData.append("image[]", payload.image[i]);
-  }
-  await StoreConfig(formData);
-  await console.log(payload);
+  console.log(formData);
+  console.log(payload);
+  await UpdateConfig(router.params.id, payload);
 }
+
+onMounted(() => {
+  ShowConfig(router.params.id);
+});
 </script>

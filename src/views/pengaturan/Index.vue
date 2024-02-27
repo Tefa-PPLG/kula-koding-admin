@@ -8,7 +8,7 @@
           :to="{ name: 'pengaturan.add' }"
         >
           <PlusIcon class="w-5 h-5 text-primary"></PlusIcon>
-          <span class="text-primary">Add tools</span>
+          <span class="text-primary">Add config</span>
         </RouterLink>
         <input
           v-model="keyword"
@@ -34,7 +34,13 @@
               scope="col"
               class="py-2.5 pl-4 pr-3 text-left text-xs font-semibold text-secondary sm:pl-6"
             >
-              Tools
+              Config
+            </th>
+            <th
+              scope="col"
+              class="py-2.5 pl-4 pr-3 text-left text-xs font-semibold text-secondary sm:pl-6"
+            >
+              Value
             </th>
             <th
               scope="col"
@@ -51,24 +57,29 @@
           </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
-          <tr v-for="(item, index) in searchings" :key="item.id">
+          <tr v-for="(item, index) in config" :key="item.id">
             <td class="py-2 pl-7 text-xs font-medium">
               {{ index + 1 }}
             </td>
             <td class="py-2 pl-4 pr-3 text-xs font-medium">
-              {{ item.tools }}
+              {{ item.config }}
             </td>
             <td class="py-2 pl-4 pr-3 text-xs font-medium">
-              <img
-                :src="BASE_URL + '/' + item.image"
-                class="w-12 h-12"
-                alt=""
-              />
+              {{ item.value }}
+            </td>
+            <td v-if="item.image" class="py-2 pl-4 pr-3 text-xs font-medium">
+              <div class="" v-for="gambar in item.image">
+                <img
+                  :src="BASE_URL + '/' + gambar.image"
+                  class="w-12 h-12"
+                  alt=""
+                />
+              </div>
             </td>
             <td class="py-2 flex gap-5 pl-4 pr-3 text-xs font-medium">
               <RouterLink
                 class="flex items-center gap-2 bg-green-500 hover:bg-green-700 duration-200 transition-colors px-2 rounded-md py-1"
-                :to="{ name: 'tools.detail', params: { id: item.id } }"
+                :to="{ name: 'pengaturan.detail', params: { id: item.id } }"
               >
                 <PencilSquareIcon
                   class="w-5 h-5 text-primary"
@@ -77,7 +88,7 @@
               </RouterLink>
               <RouterLink
                 class="flex items-center gap-2 bg-red-500 hover:bg-red-700 duration-200 transition-colors px-2 rounded-md py-1"
-                :to="{ name: 'tools.detail', params: { id: item.id } }"
+                :to="{ name: 'pengaturan.detail', params: { id: item.id } }"
               >
                 <TrashIcon class="w-5 h-5 text-primary"></TrashIcon>
                 <span class="text-primary">Delete</span>
@@ -97,8 +108,10 @@ import {
   PlusIcon,
 } from "@heroicons/vue/24/outline";
 import { onMounted, computed, ref } from "vue";
+import useConfig from "@/services/data/config";
 import useTools from "@/services/data/tools";
 
+const { IndexConfig, config } = useConfig();
 const { IndexTools, tools } = useTools();
 
 const BASE_URL = import.meta.env.VITE_API_URL;
@@ -120,5 +133,6 @@ const searchings = computed(() => {
 
 onMounted(() => {
   IndexTools();
+  IndexConfig();
 });
 </script>
