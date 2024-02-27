@@ -15,6 +15,7 @@ const UploadBlog = () => import("@/views/blog/Upload.vue");
 const UpdateBlog = () => import("@/views/blog/Update.vue");
 const PengaturanIndex = () => import("@/views/pengaturan/Index.vue");
 const UploadPengaturan = () => import("@/views/pengaturan/Upload.vue");
+const UpdatePengaturan = () => import("@/views/pengaturan/Update.vue");
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -93,6 +94,11 @@ const router = createRouter({
           path: "/pengaturan-add",
           name: "pengaturan.add",
           component: UploadPengaturan,
+        },
+        {
+          path: "/pengaturan/:id",
+          name: "pengaturan.detail",
+          component: UpdatePengaturan,
         },
       ],
     },
