@@ -55,7 +55,8 @@
               {{ item.tools }}
             </td>
             <td class="py-2 pl-4 pr-3 text-xs font-medium">
-              <img :src="BASE_URL + '/' + item.image" class="w-12 h-12" alt="" />
+              <!-- <img :src="BASE_URL + '/' + item.image" class="w-12 h-12" alt="" /> -->
+              <div v-html="item.icon" class="h-10 w-10"></div>
             </td>
             <td class="py-2 flex gap-5 pl-4 pr-3 text-xs font-medium">
               <RouterLink
