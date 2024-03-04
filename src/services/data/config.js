@@ -18,8 +18,9 @@ export default function useConfig() {
 
   async function StoreConfig(payload) {
     try {
-      const response = await axios.post("/api/v1/admin/config", payload);
-      console.log(response.data);
+      await axios.post("/api/v1/admin/config", payload);
+      router.back()
+      success("Data berhasil ditambahkan");
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error.response?.data);
@@ -31,6 +32,8 @@ export default function useConfig() {
     try {
       const response = await axios.put(`/api/v1/admin/config/${id}`, payload);
       console.log(response.data);
+      success("Data berhasil diubah");
+      router.back()
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error.response?.data);

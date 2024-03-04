@@ -26,7 +26,7 @@
                       <label for="input-group-1" class="font-semibold">Email</label>
                       <span>
                         <div class="absolute flex items-center p-2.5 pointer-events-none">
-                          <EnvelopeIcon class="w-5 text-light" />
+                          <EnvelopeIcon class="w-5 text-dark" />
                         </div>
                         <input v-model="payload.email" type="email" id="input-group-1"
                           class="bg-white border border-slate-900 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-transparent dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 placeholder:text-slate-900"
@@ -36,7 +36,7 @@
                     <div class="flex flex-col w-[250px]">
                       <span>
                         <div class="absolute flex items-center py-[33px] px-3 pointer-events-none">
-                          <LockClosedIcon class="w-5 text-light" />
+                          <LockClosedIcon class="w-5 text-dark" />
                         </div>
                         <label for="input-group-2" class="font-semibold">Password</label>
                         <input v-model="payload.password" type="password" id="input-group-2"

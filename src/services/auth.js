@@ -4,7 +4,7 @@ import useSwal from "./swal";
 import { ref } from "vue";
 
 export default function useAuth() {
-  const { accepted, confirmed, rejected } = useSwal();
+  const { accepted, confirmed, rejected, success } = useSwal();
   const router = useRouter();
   const auth = ref([]);
 
@@ -17,9 +17,9 @@ export default function useAuth() {
       console.log(token);
       if (user.role == "admin") {
         setHeaderToken(response.data.token);
-        accepted("Login success!");
+        success("Login success!");
         setTimeout(() => {
-          router.push("/");
+          router.push("dashboard");
         }, 1500);
       } else {
         rejected("Anda tidak memiliki akses untuk halaman ini!");
@@ -60,7 +60,7 @@ export default function useAuth() {
         await axios.get("/api/logout");
         removeHeaderToken();
         router.push("/login");
-        await accepted("Anda telah keluar");
+        await success("Anda telah keluar");
       } catch (error) {
         console.log(error);
       }

@@ -15,6 +15,8 @@ export default function useBlog() {
     try {
       const response = await axios.post("/api/v1/admin/blog", payload);
       console.log(response.data);
+      success("Data berhasil ditambahkan");
+      router.back()
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error.response?.data);
@@ -32,6 +34,8 @@ export default function useBlog() {
     try {
       const response = await axios.put(`/api/v1/admin/blog/${id}`);
       console.log(response.data);
+      success("Data berhasil diubah");
+      router.back()
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error.response?.data);
